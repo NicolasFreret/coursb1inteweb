@@ -14,13 +14,13 @@ t = "Emile",
 y = "Bonjour "+t,
 x = 'tu vas bien ?'
 
-console.log( y +', '+ x) 
-console.log(`Bonjour ${t}, ${x} ${num + num2}`) 
+//console.log( y +', '+ x) 
+//console.log(`Bonjour ${t}, ${x} ${num + num2}`) 
 
 
 const myArray = [1,2,3,4,5,'chips',[1,8,[10,12]], 'coucou', 'b1'];
 const dix = myArray[6][2][0];
-console.log(dix, myArray[myArray.length - 1])
+//console.log(dix, myArray[myArray.length - 1])
 
 
 const eleves = [
@@ -40,28 +40,95 @@ const eleves = [
 
 
 const students = [
-    {prenom:'Jane', nom:'Doe', email:'sddf@df.fr', age:18,notes:[10,15,18,17]},
-    {prenom:'Jeanne', nom:'Doh', email: 'test@gmail.fr', age:17,notes:[10,11,9,7]},
+    {prenom:'Jane', nom:'Doe', email:'sddf@df.fr', age:18,notes:[10,15,18,17, 'abs', 'abs', 'abs', 'abs', 'abs']},
+    {prenom:'Jeanne', nom:'Doh', email: 'test@gmail.fr', age:17,notes:[10,11,'abs',9,7]},
     {prenom:'Jean', nom:'Dae', email:'testy@crousty.fr', age:19,notes:[8,1,2,18]},
     {prenom:'John', nom:'Doha', email:'tes52@67.fr', age:52,notes:[15,13,4,7]}
 ];
 
 const k = 'nom';
-console.log(students[2][k])
+//console.log(students[2][k])
 
 students.forEach( student => {
     
     const notes = student.notes
-    let total = 0
+    let total = 0,
+    nbNotes = 0
     
     for (let i = 0; i < notes.length; i++) {
-        total = total + notes[i]
-
-        //total += notes[i]
+       if( typeof(notes[i]) == 'number' ){
+            total = total + notes[i]
+            nbNotes++
+       }
+        // total += notes[i]
     }
 
-    console.log(`Bonjour ${student.prenom}`)
+    const avg = total / nbNotes
+    let isMoreThan10 = ''
+
+    if(avg >= 10 ){
+        isMoreThan10 = 'Super, tu as la moyenne !'
+    }
+
+  
+    console.log(`Bonjour ${student.prenom} ${avg.toFixed(2)} ${isMoreThan10}`)
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const test = function(nom = 'John'){
+    console.log('bonjour '+nom)
+}
+
+const test2 = (_nom = 'Nicolas') => `Bonjour Jean`
+
+
+
+
+function isPair(_num){
+    if(typeof(_num) != 'number' ) return 'pas un nombre'
+    return _num % 2 == 0
+}
+
+console.log( isPair(2) )
+console.log( isPair(21) )
+console.log( isPair('joie') )
+
+
+
+async function getUsers(){
+    try{
+        let res = await fetch('https://api.escuelajs.co/api/v1/users')
+        if(res.status !== 200) return
+        res = await res.json()
+
+        res.forEach(user =>{
+            console.log( `Bonjour ${user.name} ${user.email}` )
+        })
+    }catch(e){
+        console.warn(e)
+    }
+}
+
+
+getUsers()
+console.log('jkjkjkj')
+
+//console.log(typeof(true))
 
 // eleves.forEach( (eleve, i) => {
 //     console.log(`Ligne ${i + 1} : Salut ${eleve}`)
